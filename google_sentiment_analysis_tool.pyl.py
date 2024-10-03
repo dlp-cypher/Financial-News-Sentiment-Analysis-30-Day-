@@ -5,6 +5,7 @@ Created on Sun Sep 22 16:22:23 2024
 @author: Andres
 """
 
+import time
 import requests
 from bs4 import BeautifulSoup
 import nltk
@@ -15,7 +16,7 @@ from datetime import datetime, timedelta
 import numpy as np
 
 # Download necessary NLTK data
-nltk.download('vader_lexicon')
+# nltk.download('vader_lexicon')
 
 def scrape_financial_news(company, days=30):
     """Scrape financial news for a given company over the past 30 days."""
@@ -105,7 +106,12 @@ def main(company):
             print(f"Date: {row['date']}, Sentiment: {row['sentiment']:.2f}, Title: {row['title']}")
     else:
         print(f"No anomalies detected for {company}")
+    return articles
+
+start_time = time.time()
 
 if __name__ == "__main__":
     company = "Tesla"  # You can change this to any company you're interested in
-    main(company)
+    all_articles = main(company)
+
+print(f"Time taken: {time.time() - start_time:.2f} seconds")
